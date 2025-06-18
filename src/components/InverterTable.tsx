@@ -38,7 +38,7 @@ const InverterTable = () => {
       zIndex={isFullscreen ? 999 : 'auto'}
       p={isFullscreen ? 4 : 0}
     >
-      {/* 🔲 Outer Box for everything */}
+      {/*Outer Box for everything */}
       <Box
         bg="#1A202C"
         borderRadius="md"
@@ -111,7 +111,7 @@ const InverterTable = () => {
                   <Box w="60px">{inv.id}</Box>
                   <Box w="130px">{inv.model}</Box>
                   <Box w="90px">{inv.power}</Box>
-                  <Box w="60px" ml={-2}>{inv.pr}</Box> {/* Value shifted to match header */}
+                  <Box w="60px" ml={-2}>{inv.pr}</Box> 
                   <Box w="60px" ml={-2} >{inv.cf}</Box>
                   <Box w="100px">{inv.kwh}</Box>
                   <Box flex="1" textAlign="right">

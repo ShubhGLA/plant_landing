@@ -31,7 +31,7 @@ export default function EnergyFlowCardSVG(): React.ReactElement {
           </Box>
         </foreignObject>
 
-        {/* Grid Box - moved left by 10px */}
+        
         <g transform="translate(270, 40)">
           <rect width="20" height="20" stroke="white" fill="none" rx="4" ry="4" />
           <text x="15" y="40" fill="gray" fontSize="10" textAnchor="middle">
