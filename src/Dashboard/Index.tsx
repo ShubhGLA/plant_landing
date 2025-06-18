@@ -70,7 +70,7 @@ const Dashboard = () => {
             gap={4}
             flexShrink={0}
           >
-            {/* 🔋 Battery Banks Container */}
+            {/*Battery Banks Container */}
             <Box
               bg="gray.700"
               borderRadius="lg"
@@ -103,7 +103,7 @@ const Dashboard = () => {
               </Box>
             </Box>
 
-            {/* 📊 SOC + Temp Charts */}
+            {/* SOC + Temp Charts */}
             <Box display="flex" gap={4} flexWrap="nowrap">
               <Box flex="1" minW="500px" h="250px">
                 <SocAvgChart />
@@ -120,7 +120,7 @@ const Dashboard = () => {
           </Box>
         </Box>
 
-        {/* 🔹 SECTION 3: Main Power Graph */}
+        {/* SECTION 3: Main Power Graph */}
         <Box mt={6}>
           <BessPowerChart />
         </Box>
