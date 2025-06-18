@@ -35,8 +35,13 @@ const BatteryBankCard = ({
   const navigate = useNavigate();
 
   const handleFullScreenClick = () => {
-    if (title === 'Battery Bank 1') {
-      navigate('/battery-bank-1');
+    const routeMap: Record<string, string> = {
+      'Battery Bank 1': '/battery-bank-1',
+      'Battery Bank 2': '/battery-bank-2',
+    };
+
+    if (routeMap[title]) {
+      navigate(routeMap[title]);
     }
   };
 
@@ -56,7 +61,6 @@ const BatteryBankCard = ({
         transition: '0.2s',
       }}
     >
-      
       <IconButton
         icon={<Maximize2 size={16} />}
         size="sm"
