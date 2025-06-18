@@ -9,7 +9,7 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { Maximize2 } from 'lucide-react'; // ✅ Changed from Fullscreen to Maximize2
+import { Maximize2 } from 'lucide-react'; 
 
 interface BatteryBankCardProps {
   title: string;
@@ -56,7 +56,7 @@ const BatteryBankCard = ({
         transition: '0.2s',
       }}
     >
-      {/* ✅ Fullscreen Icon with Maximize2 */}
+      
       <IconButton
         icon={<Maximize2 size={16} />}
         size="sm"
