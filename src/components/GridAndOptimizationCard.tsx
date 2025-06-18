@@ -3,7 +3,7 @@ import { CheckCircleIcon } from '@chakra-ui/icons'
 
 const GridAndOptimizationCard = () => {
   return (
-    <Box p={4} bg="gray.900" borderRadius="xl" height="200px" shadow="md" color="white">
+    <Box p={4} bg="gray.900" borderRadius="xl" height="200px" width="820px" shadow="md" color="white">
       <Flex height="100%">
         {/* Left section: Grid Connection */}
         <Flex direction="column" flex="1" pr={4} justify="space-between">

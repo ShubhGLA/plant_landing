@@ -6,7 +6,7 @@ import {
   CircularProgress,
   CircularProgressLabel,
   Grid,
-  GridItem,
+  GridItem
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Highcharts from 'highcharts';
@@ -82,106 +82,153 @@ const BatteryBank1Dashboard = () => {
       <Grid templateColumns="300px 360px auto" gap={10} alignItems="start">
         {/* Left Column */}
         <GridItem>
-          <Box bg="#2D3748" borderRadius="md" p={4} w="320px" h="auto">
-            <Text fontSize="sm" mb={2} color="gray.300">Strings Connected</Text>
-            <HStack align="center" spacing={4}>
-              <CircularProgress value={100} size="150px" color="green.400" thickness="10px">
-                <CircularProgressLabel fontWeight="bold" fontSize="md">10</CircularProgressLabel>
-              </CircularProgress>
-              <VStack align="start" spacing={3}>
-                <VStack spacing={0} align="start">
-                  <Text fontSize="md" color="gray.300">CONNECTED</Text>
-                  <Text fontSize="lg" fontWeight="bold" color="green.300">10</Text>
-                </VStack>
-                <VStack spacing={0} align="start">
-                  <Text fontSize="md" color="gray.300">DISABLED</Text>
-                  <Text fontSize="lg" fontWeight="bold" color="red.300">0</Text>
-                </VStack>
-              </VStack>
-            </HStack>
+          <Box bg="#2D3748" borderRadius="md" p={4} w="220px" h="auto">
+      {/* Strings Connected */}
+      <Text fontSize="sm" mb={2} color="gray.300">
+        Strings Connected
+      </Text>
+      <HStack align="start" spacing={3}>
+        <CircularProgress value={100} size="80px" color="green.400" thickness="8px">
+          <CircularProgressLabel fontWeight="bold" fontSize="sm">10</CircularProgressLabel>
+        </CircularProgress>
+        <VStack align="start" spacing={2}>
+          <VStack spacing={0} align="start">
+            <Text fontSize="sm" color="gray.300">CONNECTED</Text>
+            <Text fontSize="md" fontWeight="bold" color="green.300">10</Text>
+          </VStack>
+          <VStack spacing={0} align="start">
+            <Text fontSize="sm" color="gray.300">DISABLED</Text>
+            <Text fontSize="md" fontWeight="bold" color="red.300">0</Text>
+          </VStack>
+        </VStack>
+      </HStack>
 
-            <Box mt={6}>
-              <Text fontSize="sm" mb={2} color="gray.300">Cell Balancing</Text>
-              <HStack align="center" spacing={4}>
-                <CircularProgress value={100} size="150px" color="gray.400" thickness="10px">
-                  <CircularProgressLabel fontWeight="bold" fontSize="md">1400</CircularProgressLabel>
-                </CircularProgress>
-                <VStack align="start" spacing={3}>
-                  <VStack spacing={0} align="start">
-                    <Text fontSize="md" color="gray.300">ACTIVE</Text>
-                    <Text fontSize="md" fontWeight="bold" color="blue.200">0</Text>
-                  </VStack>
-                  <VStack spacing={0} align="start">
-                    <Text fontSize="md" color="gray.300">BALANCED</Text>
-                    <Text fontSize="md" fontWeight="bold" color="orange.300">1400</Text>
-                  </VStack>
-                </VStack>
-              </HStack>
-            </Box>
+      {/* Cell Balancing */}
+      <Box mt={6}>
+        <Text fontSize="sm" mb={2} color="gray.300">
+          Cell Balancing
+        </Text>
+        <HStack align="start" spacing={3}>
+          <CircularProgress value={100} size="80px" color="gray.400" thickness="8px">
+            <CircularProgressLabel fontWeight="bold" fontSize="sm">1400</CircularProgressLabel>
+          </CircularProgress>
+          <VStack align="start" spacing={2}>
+            <VStack spacing={0} align="start">
+              <Text fontSize="sm" color="gray.300">ACTIVE</Text>
+              <Text fontSize="md" fontWeight="bold" color="blue.200">0</Text>
+            </VStack>
+            <VStack spacing={0} align="start">
+              <Text fontSize="sm" color="gray.300">BALANCED</Text>
+              <Text fontSize="md" fontWeight="bold" color="orange.300">1400</Text>
+            </VStack>
+          </VStack>
+        </HStack>
+      </Box>
           </Box>
 
           {/* Strings Status */}
-          <Box mt={6} bg="#2D3748" borderRadius="md" p={4} w="780px" h="420px" overflow="auto">
-  <Text fontSize="sm" mb={4} color="gray.300" fontWeight="semibold">Strings</Text>
-
-  <Box minW="950px">
-    <VStack spacing={1} align="stretch">
-      {[...Array(12)].map((_, i) => {
-        const id = `BK1.S${(i + 1).toString().padStart(2, '0')}`;
-        return (
-          <HStack
-            key={i}
-            justify="space-between"
-            fontSize="xs"
-            px={4}
-            py={2}
-            bg="#1A202C"
-            borderRadius="md"
-          >
-            <Text fontWeight="bold" color="white" w="80px">{id}</Text>
-
-            <HStack spacing={1} minW="90px">
-              <Box boxSize="8px" bg="green.400" borderRadius="full" />
-              <Text color="green.200" fontWeight="semibold">ENABLED</Text>
-            </HStack>
-
-            <HStack spacing={1} minW="90px">
-              <Box boxSize="8px" bg="green.400" borderRadius="full" />
-              <Text color="green.200" fontWeight="semibold">CONNECTED</Text>
-            </HStack>
-
-            <Text color="pink.300" fontWeight="semibold" minW="80px">25.97% SoC</Text>
-            <Text color="white" minW="80px">74.03% <Text as="span" color="teal.300">DoD</Text></Text>
-            <Text color="cyan.300" minW="90px">100.00% <Text as="span" color="cyan.400">% SoH</Text></Text>
-
-            <Box color="gray.500" fontWeight="bold">⋯</Box>
-          </HStack>
-        );
-      })}
-    </VStack>
+          <Box
+  mt={6}
+  bg="#2D3748"
+  borderRadius="md"
+  w="690px"
+  h="510px"
+  overflowY="auto"
+  sx={{
+    '&::-webkit-scrollbar': {
+      width: '4px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'gray.600',
+      borderRadius: '4px',
+    },
+  }}
+>
+  {/* Fixed Title */}
+  <Box
+    position="sticky"
+    top="0"
+    zIndex={1}
+    bg="#2D3748"
+    p={4}
+    borderBottom="1px solid #4A5568"
+  >
+    <Text fontSize="sm" color="gray.300" fontWeight="semibold">Strings</Text>
   </Box>
+
+  {/* String Rows */}
+  <VStack spacing={0} align="stretch">
+    {[...Array(12)].map((_, i) => {
+      const id = `BK1.S${(i + 1).toString().padStart(2, '0')}`;
+      return (
+        <HStack
+          key={i}
+          fontSize="xs"
+          px={4}
+          py={2}
+          bg="#1A202C"
+          _even={{ bg: '#2D3748' }}
+          borderBottom="1px solid #4A5568"
+        >
+          <Box w="80px" fontWeight="bold" color="white">{id}</Box>
+
+          <HStack w="90px">
+            <Box boxSize="8px" bg="green.400" borderRadius="full" />
+            <Text color="green.200" fontWeight="semibold">ENABLED</Text>
+          </HStack>
+
+          <HStack w="90px">
+            <Box boxSize="8px" bg="green.400" borderRadius="full" />
+            <Text color="green.200" fontWeight="semibold">CONNECTED</Text>
+          </HStack>
+
+          <Box w="100px" color="pink.300" fontWeight="semibold">25.97% SoC</Box>
+          <Box w="100px" color="white">74.03% <Text as="span" color="teal.300">DoD</Text></Box>
+          <Box w="100px" color="cyan.300">100.00% <Text as="span" color="cyan.400">% SoH</Text></Box>
+          <Box flex="1" textAlign="right" color="gray.500" fontWeight="bold">⋯</Box>
+        </HStack>
+      );
+    })}
+  </VStack>
 </Box>
+
 
         </GridItem>
 
         {/* Middle Column */}
-        <GridItem bg="#2D3748" borderRadius="md" p={2} w="450px" h="420px">
-          <Text fontSize="lg" mb={3}>Battery Strings</Text>
-          <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-            {[...Array(10)].map((_, i) => (
-              <Box key={i} bg="#4A5568" p={2} borderRadius="md" textAlign="center" maxW="70px">
-                <Text fontSize="sm" fontWeight="bold">BK1.S{(i + 1).toString().padStart(2, '0')}</Text>
-                <Text fontSize="xs" color="green.200">CONNECTED</Text>
-                <Box mt={2} h="40px" bg="gray.700" borderRadius="md"></Box>
-              </Box>
-            ))}
-          </Grid>
-        </GridItem>
+       <Box bg="#2D3748" p={6} borderRadius="md" color="white" w="450px" h="310px" ml={"-100px"}>
+  <Text fontWeight="bold" fontSize="lg" mb={4}>
+    String Connected Layout
+  </Text>
+
+  <Grid templateColumns="repeat(5, 1fr)" gap={3}>
+    {[...Array(10)].map((_, i) => {
+      const id = `BK1.S${(i + 1).toString().padStart(2, '0')}`;
+      return (
+        <Box
+          key={i}
+          bg="#4A5568"
+          p={2}
+          borderRadius="md"
+          textAlign="center"
+          cursor="pointer"
+          _hover={{ bg: '#2C5282' }}
+          onClick={() => navigate(`/battery-bank-1/string/${id}`)}
+        >
+          <Text fontSize="xs" fontWeight="bold">{id}</Text>
+          <Text fontSize="2xs" color="green.200">CONNECTED</Text>
+          <Box mt={2} h="30px" bg="gray.700" borderRadius="md"></Box>
+        </Box>
+      );
+    })}
+  </Grid>
+</Box>
+
 
         {/* Right Column */}
         <VStack align="stretch" spacing={6} ml={14}>
           {/* Real Time Monitoring */}
-          <Box bg="#2D3748" borderRadius="md" p={10} maxW="890px" h="320px" position="relative">
+          <Box bg="#2D3748" borderRadius="md" p={14} maxW="600px" h="320px" ml={"-90px"} position="relative">
             <Text fontSize="md" fontWeight="bold" color="white" position="absolute" top="4" left="6" zIndex="1">
               Real Time Monitoring
             </Text>
@@ -204,82 +251,149 @@ const BatteryBank1Dashboard = () => {
           </Box>
 
           {/* Temperatures and Device */}
-          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-            <GridItem bg="#2D3748" borderRadius="md" p={4}>
-              <Text fontSize="lg" mb={3}>Temperatures</Text>
-              <HStack justify="space-between">
-                <Text fontSize="sm" color="gray.300">Max. Module temp</Text>
-                <Text fontSize="sm" fontWeight="bold" color="red.300" mr="48px">35.61°C</Text>
-              </HStack>
-              <HStack spacing={2} mb={3} align="flex-start">
-                <Box as="svg" viewBox="0 0 44 24" boxSize={5} fill="none" ml="32px">
-                  <path d="M16 4 V16" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                  <path d="M16 16 H50" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                  <path d="M33 13 L50 16 L33 19" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                </Box>
-                <Box ml={7}>
-                  <HStack spacing={7}>
-                    <Text fontSize="xs" color="gray.300">String ID <b>6</b></Text>
-                    <Text fontSize="xs" color="gray.300">Module <b>5</b></Text>
-                  </HStack>
-                </Box>
-              </HStack>
+           <Box w="100%">
+      <Grid templateColumns="repeat(2, 290px)" gap={4} ml={"-90px"}>
+        {/* Temperatures Box */}
+        <GridItem bg="#2D3748" borderRadius="md" p={4}>
+          <Text fontSize="lg" mb={3} color="white">Temperatures</Text>
 
-              <HStack justify="space-between">
-                <Text fontSize="sm" color="gray.300">Min. Module temp</Text>
-                <Text fontSize="sm" fontWeight="bold" color="blue.300" mr="48px">32.86°C</Text>
-              </HStack>
-              <HStack spacing={2} mb={2} align="flex-start">
-                <Box as="svg" viewBox="0 0 44 24" boxSize={5} fill="none" ml="32px">
-                  <path d="M16 4 V16" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                  <path d="M16 16 H50" stroke="white" strokeWidth="4" strokeLinecap="round" />
-                  <path d="M33 13 L50 16 L33 19" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                </Box>
-                <Box ml={7}>
-                  <HStack spacing={7}>
-                    <Text fontSize="xs" color="gray.300">String ID <b>7</b></Text>
-                    <Text fontSize="xs" color="gray.300">Module <b>2</b></Text>
-                  </HStack>
-                </Box>
-              </HStack>
+          <HStack justify="space-between">
+            <Text fontSize="sm" color="gray.300">Max. Module temp</Text>
+            <Text fontSize="sm" fontWeight="bold" color="red.300" mr="48px">35.61°C</Text>
+          </HStack>
 
-              <HStack justify="space-between" mt={3}>
-                <Text fontSize="sm" color="gray.300">Average Module temp</Text>
-                <Text fontSize="sm" fontWeight="bold" color="gray.100" mr="48px">34.20°C</Text>
+          <HStack spacing={2} mb={3} align="flex-start">
+            <Box as="svg" viewBox="0 0 44 24" boxSize={5} fill="none" ml="32px">
+              <path d="M16 4 V16" stroke="white" strokeWidth="4" strokeLinecap="round" />
+              <path d="M16 16 H50" stroke="white" strokeWidth="4" strokeLinecap="round" />
+              <path d="M33 13 L50 16 L33 19" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+            </Box>
+            <Box ml={7}>
+              <HStack spacing={7}>
+                <Text fontSize="xs" color="gray.300">String ID <b>6</b></Text>
+                <Text fontSize="xs" color="gray.300">Module <b>5</b></Text>
               </HStack>
-            </GridItem>
+            </Box>
+          </HStack>
 
-            <GridItem bg="#2D3748" borderRadius="md" p={4}>
-              <Text fontSize="lg" mb={4}>Device</Text>
-              <Grid templateColumns="1fr auto" rowGap={2}>
-                <Text color="gray.300">Manufacturer</Text>
-                <Text fontWeight="bold">CD</Text>
-                <Text color="gray.300">Model</Text>
-                <Text fontWeight="bold">zenon</Text>
-                <Text color="gray.300">Version</Text>
-                <Text fontWeight="bold">10.0</Text>
-                <Text color="gray.300">Options</Text>
-                <Text fontWeight="bold">Demo</Text>
-                <Text color="gray.300">Serial No.</Text>
-                <Text fontWeight="bold">00</Text>
-                <Text color="gray.300">Device address</Text>
-                <Text fontWeight="bold">0</Text>
-              </Grid>
-            </GridItem>
+          <HStack justify="space-between">
+            <Text fontSize="sm" color="gray.300">Min. Module temp</Text>
+            <Text fontSize="sm" fontWeight="bold" color="blue.300" mr="48px">32.86°C</Text>
+          </HStack>
+
+          <HStack spacing={2} mb={2} align="flex-start">
+            <Box as="svg" viewBox="0 0 44 24" boxSize={5} fill="none" ml="32px">
+              <path d="M16 4 V16" stroke="white" strokeWidth="4" strokeLinecap="round" />
+              <path d="M16 16 H50" stroke="white" strokeWidth="4" strokeLinecap="round" />
+              <path d="M33 13 L50 16 L33 19" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+            </Box>
+            <Box ml={7}>
+              <HStack spacing={7}>
+                <Text fontSize="xs" color="gray.300">String ID <b>7</b></Text>
+                <Text fontSize="xs" color="gray.300">Module <b>2</b></Text>
+              </HStack>
+            </Box>
+          </HStack>
+
+          <HStack justify="space-between" mt={3}>
+            <Text fontSize="sm" color="gray.300">Average Module temp</Text>
+            <Text fontSize="sm" fontWeight="bold" color="gray.100" mr="48px">34.20°C</Text>
+          </HStack>
+        </GridItem>
+
+        {/* Device Info Box */}
+        <GridItem bg="#2D3748" borderRadius="md" p={4}>
+          <Text fontSize="lg" mb={4} color="white">Device</Text>
+          <Grid templateColumns="1fr auto" rowGap={2}>
+            <Text color="gray.300">Manufacturer</Text>
+            <Text fontWeight="bold" color="white">CD</Text>
+            <Text color="gray.300">Model</Text>
+            <Text fontWeight="bold" color="white">zenon</Text>
+            <Text color="gray.300">Version</Text>
+            <Text fontWeight="bold" color="white">10.0</Text>
+            <Text color="gray.300">Options</Text>
+            <Text fontWeight="bold" color="white">Demo</Text>
+            <Text color="gray.300">Serial No.</Text>
+            <Text fontWeight="bold" color="white">00</Text>
+            <Text color="gray.300">Device address</Text>
+            <Text fontWeight="bold" color="white">0</Text>
           </Grid>
+        </GridItem>
+      </Grid>
+    </Box>
 
           {/* Analogs */}
-          <Box bg="#2D3748" borderRadius="md" p={4}>
-            <Text fontSize="lg" mb={2}>Analogs</Text>
-            <VStack align="start" spacing={2}>
-              <Text>Max. String voltage: <Text as="span" color="green.300">606.40 V</Text></Text>
-              <Text>Min. String voltage: <Text as="span" color="green.300">606.40 V</Text></Text>
-              <Text>Avg. String voltage: <Text as="span" color="green.300">606.40 V</Text></Text>
-              <Text>Max. String current: <Text as="span" color="pink.300">0.00 A</Text></Text>
-              <Text>Min. String current: <Text as="span" color="pink.300">0.00 A</Text></Text>
-              <Text>Avg. String current: <Text as="span" color="pink.300">0.00 A</Text></Text>
-            </VStack>
+          <Box bg="#2D3748" borderRadius="md" p={4} color="white" w="600px" h="220px" ml={"-90px"}>
+  <Text fontSize="lg" fontWeight="bold" mb={4}>Analogs</Text>
+  <HStack spacing={20} align="start" justify="space-between">
+    {/* Left Column */}
+    <VStack align="start" spacing={4}>
+      {/* Max String Voltage */}
+      <HStack spacing={2}>
+        <Text>Max. String voltage</Text>
+        <Text color="green.300" fontWeight="semibold">606.40 V</Text>
+        <HStack spacing={1}>
+          <Box as="svg" viewBox="0 0 24 24" boxSize="4">
+            <path d="M5 12h14M13 18l6-6-6-6" stroke="white" strokeWidth="2" fill="none" />
           </Box>
+          <Text>String ID <Text as="span" fontWeight="bold">1</Text></Text>
+        </HStack>
+      </HStack>
+
+      {/* Min String Voltage */}
+      <HStack spacing={2}>
+        <Text>Min. String voltage</Text>
+        <Text color="green.300" fontWeight="semibold">606.40 V</Text>
+        <HStack spacing={1}>
+          <Box as="svg" viewBox="0 0 24 24" boxSize="4">
+            <path d="M5 12h14M13 18l6-6-6-6" stroke="white" strokeWidth="2" fill="none" />
+          </Box>
+          <Text>String ID <Text as="span" fontWeight="bold">1</Text></Text>
+        </HStack>
+      </HStack>
+
+      {/* Avg Voltage */}
+      <HStack spacing={2}>
+        <Text>Average String voltage</Text>
+        <Text color="green.300" fontWeight="semibold">606.40 V</Text>
+      </HStack>
+    </VStack>
+
+    {/* Right Column */}
+    <VStack align="start" spacing={4}>
+      {/* Max String Current */}
+      <HStack spacing={2}>
+        <Text>Max. String current</Text>
+        <Text color="pink.400" fontWeight="semibold">0.00 A</Text>
+        <HStack spacing={1}>
+          <Box as="svg" viewBox="0 0 24 24" boxSize="4">
+            <path d="M5 12h14M13 18l6-6-6-6" stroke="white" strokeWidth="2" fill="none" />
+          </Box>
+          <Text>String ID <Text as="span" fontWeight="bold">1</Text></Text>
+        </HStack>
+      </HStack>
+
+      {/* Min String Current */}
+      <HStack spacing={2}>
+        <Text>Min. String current</Text>
+        <Text color="pink.400" fontWeight="semibold">0.00 A</Text>
+        <HStack spacing={1}>
+          <Box as="svg" viewBox="0 0 24 24" boxSize="4">
+            <path d="M5 12h14M13 18l6-6-6-6" stroke="white" strokeWidth="2" fill="none" />
+          </Box>
+          <Text>String ID <Text as="span" fontWeight="bold">1</Text></Text>
+        </HStack>
+      </HStack>
+
+      {/* Avg Current */}
+      <HStack spacing={2}>
+        <Text>Average String current</Text>
+        <Text color="pink.400" fontWeight="semibold">10.00 A</Text>
+      </HStack>
+    </VStack>
+  </HStack>
+</Box>
+
         </VStack>
       </Grid>
 

@@ -1,5 +1,17 @@
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon } from '@chakra-ui/react';
-import { FaExclamationTriangle } from 'react-icons/fa';
+import {
+  Box,
+  Text,
+  Icon,
+  HStack,
+  VStack,
+  IconButton,
+} from '@chakra-ui/react';
+import {
+  FaExclamationTriangle,
+  FaExpandArrowsAlt,
+  FaCompressArrowsAlt,
+} from 'react-icons/fa';
+import { useState } from 'react';
 
 const inverterData = [
   { id: '001', model: 'Sungrow 1000XX', power: 4129.1, pr: 'n/a', cf: 'n/a', kwh: 105087.1, alarms: ['warning'] },
@@ -13,55 +25,110 @@ const inverterData = [
 ];
 
 const InverterTable = () => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   return (
-    <Box bg="gray.900" borderRadius="lg" p={4} w="full" h="450px" overflowY="auto">
-      <Text fontSize="md" fontWeight="bold" mb={3}>
-        Inverters
-      </Text>
+    <Box
+      mt={6}
+      w={isFullscreen ? '100vw' : '100%'}
+      h={isFullscreen ? '100vh' : '500px'}
+      position={isFullscreen ? 'fixed' : 'relative'}
+      top={isFullscreen ? '0' : 'auto'}
+      left={isFullscreen ? '0' : 'auto'}
+      zIndex={isFullscreen ? 999 : 'auto'}
+      p={isFullscreen ? 4 : 0}
+    >
+      {/* 🔲 Outer Box for everything */}
+      <Box
+        bg="#1A202C"
+        borderRadius="md"
+        border="1px solid #4A5568"
+        overflow="hidden"
+        h="100%"
+        display="flex"
+        flexDirection="column"
+      >
+        {/* Header */}
+        <HStack
+          p={4}
+          borderBottom="1px solid #4A5568"
+          justifyContent="space-between"
+          bg="#1A202C"
+        >
+          <Text fontSize="sm" color="gray.300" fontWeight="semibold">
+            Inverters
+          </Text>
+          <IconButton
+            aria-label="Toggle Fullscreen"
+            icon={isFullscreen ? <FaCompressArrowsAlt /> : <FaExpandArrowsAlt />}
+            size="sm"
+            variant="ghost"
+            color="gray.400"
+            onClick={() => setIsFullscreen(!isFullscreen)}
+            _hover={{ color: 'white' }}
+          />
+        </HStack>
 
-      {/* Table Header */}
-      <Table variant="unstyled" size="sm" mb={2}>
-        <Thead>
-          <Tr>
-            <Th color="gray.400">ID</Th>
-            <Th color="gray.400">Model</Th>
-            <Th color="gray.400">Power (kW)</Th>
-            <Th color="gray.400">PR</Th>
-            <Th color="gray.400">CF</Th>
-            <Th color="gray.400">kWh</Th>
-            <Th color="gray.400">Warn / Alm</Th>
-          </Tr>
-        </Thead>
-      </Table>
+        {/* Scrollable Area */}
+        <Box
+          flex="1"
+          overflowY="auto"
+          px={4}
+          py={4}
+          sx={{
+            '&::-webkit-scrollbar': { width: '6px' },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#718096',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-track': {
+              backgroundColor: '#1A202C',
+            },
+          }}
+        >
+          {/* Table Header */}
+          <HStack pb={3} fontSize="sm" color="gray.400" fontWeight="semibold">
+            <Box w="60px">ID</Box>
+            <Box w="130px">Model</Box>
+            <Box w="90px">Power (kW)</Box>
+            <Box w="60px" pl={2}>PR</Box> {/* PR shifted slightly right */}
+            <Box w="60px">CF</Box>
+            <Box w="100px">kWh</Box>
+            <Box flex="1" textAlign="right">Warn / Alm</Box>
+          </HStack>
 
-      {/* Each Row in a Box */}
-      <Box>
-        {inverterData.map(inv => (
-          <Box key={inv.id} bg="gray.800" borderRadius="md" p={2} mb={2}>
-            <Table variant="unstyled" size="sm">
-              <Tbody>
-                <Tr>
-                  <Td>{inv.id}</Td>
-                  <Td>{inv.model}</Td>
-                  <Td>{inv.power}</Td>
-                  <Td>{inv.pr}</Td>
-                  <Td>{inv.cf}</Td>
-                  <Td>{inv.kwh}</Td>
-                  <Td>
-                    <Box display="flex" gap={2}>
+          {/* Rows */}
+          <VStack spacing={2} align="stretch">
+            {inverterData.map((inv) => (
+              <Box
+                key={inv.id}
+                px={4}
+                py={2}
+                borderRadius="md"
+                bg="#2D3748"
+              >
+                <HStack fontSize="xs" color="white">
+                  <Box w="60px">{inv.id}</Box>
+                  <Box w="130px">{inv.model}</Box>
+                  <Box w="90px">{inv.power}</Box>
+                  <Box w="60px" ml={-2}>{inv.pr}</Box> {/* Value shifted to match header */}
+                  <Box w="60px" ml={-2} >{inv.cf}</Box>
+                  <Box w="100px">{inv.kwh}</Box>
+                  <Box flex="1" textAlign="right">
+                    <HStack justify="flex-end" spacing={2}>
                       {inv.alarms.includes('warning') && (
                         <Icon as={FaExclamationTriangle} color="yellow.400" />
                       )}
                       {inv.alarms.includes('danger') && (
                         <Icon as={FaExclamationTriangle} color="red.400" />
                       )}
-                    </Box>
-                  </Td>
-                </Tr>
-              </Tbody>
-            </Table>
-          </Box>
-        ))}
+                    </HStack>
+                  </Box>
+                </HStack>
+              </Box>
+            ))}
+          </VStack>
+        </Box>
       </Box>
     </Box>
   );

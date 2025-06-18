@@ -9,7 +9,7 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { Fullscreen } from 'lucide-react';
+import { Maximize2 } from 'lucide-react'; // ✅ Changed from Fullscreen to Maximize2
 
 interface BatteryBankCardProps {
   title: string;
@@ -56,9 +56,9 @@ const BatteryBankCard = ({
         transition: '0.2s',
       }}
     >
-      {/*Fullscreen Icon */}
+      {/* ✅ Fullscreen Icon with Maximize2 */}
       <IconButton
-        icon={<Fullscreen size={16} />}
+        icon={<Maximize2 size={16} />}
         size="sm"
         aria-label="fullscreen"
         position="absolute"
@@ -66,17 +66,18 @@ const BatteryBankCard = ({
         right="8px"
         onClick={handleFullScreenClick}
         variant="ghost"
-        colorScheme="white"
+        color="whiteAlpha.800"
+        zIndex={10}
       />
 
-      {/*Title */}
+      {/* Title */}
       <Text fontSize="sm" fontWeight="semibold" mb={2}>
         {title}
       </Text>
 
       <Flex align="center" justify="flex-start" w="100%" flexWrap="wrap">
         <HStack spacing={16} align="flex-start" w="100%">
-          {/*LEFT: Circular + Status */}
+          {/* LEFT: Circular + Status */}
           <HStack spacing={8}>
             <CircularProgress
               value={percentage}
@@ -91,7 +92,7 @@ const BatteryBankCard = ({
             </CircularProgress>
 
             <VStack align="start" spacing={3}>
-              {/*Connected */}
+              {/* Connected */}
               <HStack spacing={2}>
                 <Box width="4px" height="38px" bg="teal.400" borderRadius="md" />
                 <VStack spacing={0} align="start">
@@ -100,7 +101,7 @@ const BatteryBankCard = ({
                 </VStack>
               </HStack>
 
-              {/*Disabled */}
+              {/* Disabled */}
               <HStack spacing={2}>
                 <Box width="4px" height="38px" bg="gray.500" borderRadius="md" />
                 <VStack spacing={0} align="start">
@@ -111,9 +112,9 @@ const BatteryBankCard = ({
             </VStack>
           </HStack>
 
-          {/*RIGHT: Strings & Module Temps */}
+          {/* RIGHT: Strings & Module Temps */}
           <VStack align="start" spacing={4}>
-            {/*Strings Section */}
+            {/* Strings */}
             <VStack align="start" spacing={1}>
               <Text fontSize="xs" color="gray.300">Strings</Text>
               <HStack spacing={8}>
@@ -128,7 +129,7 @@ const BatteryBankCard = ({
               </HStack>
             </VStack>
 
-            {/*Module Temps Section */}
+            {/* Module Temps */}
             <VStack align="start" spacing={1}>
               <Text fontSize="xs" color="gray.300">Module Temps</Text>
               <HStack spacing={10}>

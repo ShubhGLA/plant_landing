@@ -1,9 +1,22 @@
-import { Box, Text, HStack, VStack } from '@chakra-ui/react';
+import { Box, Text, HStack, VStack, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import { FaExpandArrowsAlt, FaCompressArrowsAlt, FaEllipsisV } from 'react-icons/fa';
+
+// Load Highcharts modules with dynamic import for compatibility with TypeScript and React
+import('highcharts/modules/exporting').then(module => {
+  module.default(Highcharts);
+});
+import('highcharts/modules/export-data').then(module => {
+  module.default(Highcharts);
+});
+
 
 const BatteryTempChart = () => {
-  const options: Highcharts.Options = {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const chartOptions: Highcharts.Options = {
     chart: {
       backgroundColor: 'transparent',
       height: 200,
@@ -42,6 +55,9 @@ const BatteryTempChart = () => {
         color: '#00c2ff',
       },
     ],
+    exporting: {
+      enabled: false,
+    },
     credits: { enabled: false },
   };
 
@@ -53,25 +69,87 @@ const BatteryTempChart = () => {
       minW="240px"
       flex="1"
       boxShadow="md"
+      w={isFullscreen ? '100vw' : '100%'}
+      h={isFullscreen ? '100vh' : 'auto'}
+      position={isFullscreen ? 'fixed' : 'relative'}
+      top={isFullscreen ? 0 : 'auto'}
+      left={isFullscreen ? 0 : 'auto'}
+      zIndex={isFullscreen ? 1000 : 'auto'}
+      overflow="auto"
     >
-      {/* Header Info */}
-      <VStack align="start" spacing={1} mb={2}>
-        <HStack fontSize="sm" spacing={3}>
+      {/* Header Bar */}
+      <HStack justify="space-between" mb={4}>
+        <Text fontSize="sm" color="gray.300" fontWeight="semibold">
+          Battery Temperature
+        </Text>
+
+        <HStack spacing={2}>
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              size="sm"
+              variant="ghost"
+              icon={<FaEllipsisV />}
+              aria-label="Options"
+              color="gray.400"
+              _hover={{ color: 'black' }}
+            />
+            <MenuList bg="gray.800" borderColor="gray.600">
+              <MenuItem
+              color="black"
+                onClick={() =>
+                  Highcharts.charts[0]?.exportChart({}, {})
+                }
+              >
+                Download PNG
+              </MenuItem>
+              <MenuItem
+              color={"black"}
+                onClick={() =>
+                  Highcharts.charts[0]?.downloadCSV?.()
+                }
+              >
+                Download CSV
+              </MenuItem>
+            </MenuList>
+          </Menu>
+
+          <IconButton
+            aria-label="Toggle Fullscreen"
+            icon={
+              isFullscreen ? (
+                <FaCompressArrowsAlt />
+              ) : (
+                <FaExpandArrowsAlt />
+              )
+            }
+            size="sm"
+            variant="ghost"
+            color="gray.400"
+            onClick={() => setIsFullscreen(!isFullscreen)}
+            _hover={{ color: 'white' }}
+          />
+        </HStack>
+      </HStack>
+
+      {/* Info Text */}
+      <VStack align="start" spacing={1} mb={2} fontSize="sm" color="gray.300">
+        <HStack spacing={3}>
           <Text>Battery ambient</Text>
-          <Text fontWeight="bold">26/22</Text>
+          <Text fontWeight="bold">26 / 22</Text>
         </HStack>
-        <HStack fontSize="sm" spacing={3}>
+        <HStack spacing={3}>
           <Text>Battery cell</Text>
-          <Text fontWeight="bold">21/19</Text>
+          <Text fontWeight="bold">21 / 19</Text>
         </HStack>
-        <HStack fontSize="sm" spacing={3}>
+        <HStack spacing={3}>
           <Text>Battery humidity</Text>
           <Text fontWeight="bold">52%</Text>
         </HStack>
       </VStack>
 
       {/* Chart */}
-      <HighchartsReact highcharts={Highcharts} options={options} />
+      <HighchartsReact highcharts={Highcharts} options={chartOptions} />
     </Box>
   );
 };
