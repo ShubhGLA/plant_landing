@@ -47,7 +47,7 @@ const StringDashboard = () => {
           <GridItem bg="#2D3748" borderRadius="md" p={4} width="400px" height="250px">
   <Text fontSize="lg" mb={3} color="white">Temperatures</Text>
 
-  {/* Content shifted right with consistent spacing */}
+  
   <Box pl={2}>
     {/* Max Temp */}
     <HStack justify="space-between" mb={1}>
