@@ -16,8 +16,7 @@ import BatteryBank2Dashboard from "./components/BatteryBank2Dashboard";
 import StringDashboard from "./components/StringDashboard";
 import BessControl from "./Dashboard/BessControl";
 import DSMdashboard from "./Dashboard/DSMdashboard";
-import PowerFlowDashboard from "./Dashboard/PowerFlowDashboard"; // ✅ Corrected import path
-
+import PowerFlowDashboard from "./Dashboard/PowerFlowDashboard";
 const App = () => {
   return (
     <Box m={0} p={0} bg="gray.900" color="white" minH="100vh">
@@ -31,7 +30,7 @@ const App = () => {
           <Route path="/battery-bank-2/string/:id" element={<StringDashboard />} />
           <Route path="/bess-control" element={<BessControl />} />
           <Route path="/dsm" element={<DSMdashboard />} />
-          <Route path="/power-flow" element={<PowerFlowDashboard />} /> {/* ✅ New route */}
+          <Route path="/power-flow" element={<PowerFlowDashboard />} />
         </Routes>
       </Box>
     </Box>
