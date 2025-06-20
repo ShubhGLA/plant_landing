@@ -16,7 +16,7 @@ const links = [
   { name: "Dashboard", path: "/" },
   { name: "Battery Bank 1", path: "/battery-bank-1" },
   { name: "BESS Control", path: "/bess-control" },
-  { name: "DSM", path: "/dsm" }, // ✅ Added DSM
+  { name: "DSM", path: "/dsm" }, 
 ];
 
 const NavLink = ({ name, path }: { name: string; path: string }) => (

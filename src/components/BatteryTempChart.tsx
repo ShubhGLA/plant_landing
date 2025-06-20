@@ -11,7 +11,7 @@ import HighchartsExporting from 'highcharts/modules/exporting';
 import HighchartsExportData from 'highcharts/modules/export-data';
 import GraphLayout from '../components/GraphLayout';
 
-// ✅ Load modules
+
 if (typeof HighchartsExporting === 'function') {
   HighchartsExporting(Highcharts);
 }
@@ -29,7 +29,7 @@ const BatteryTempChart = () => {
       height: 200,
     },
     accessibility: {
-      enabled: false, // ✅ Removes accessibility warning
+      enabled: false,
     },
     title: { text: '' },
     xAxis: {
@@ -57,18 +57,18 @@ const BatteryTempChart = () => {
         name: 'Max Ambient',
         data: [26, 26, 27, 27, 28, 28],
         color: '#e49a3d',
-        marker: { enabled: false }, // ✅ No dots
+        marker: { enabled: false }, 
       },
       {
         type: 'line',
         name: 'Min Ambient',
         data: [22, 22, 23, 23, 24, 24],
         color: '#00c2ff',
-        marker: { enabled: false }, // ✅ No dots
+        marker: { enabled: false }, 
       },
     ],
     credits: { enabled: false },
-    exporting: { enabled: true }, // ✅ Required for export to PNG
+    exporting: { enabled: true }, 
   };
 
   const handleDownloadPNG = () => {

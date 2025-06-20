@@ -22,7 +22,7 @@ export default function ManualOverridePanel() {
       color="white"
       borderRadius="md"
       p={4}
-      height="100%" // ✅ fill parent
+      height="100%"
       width="100%"
       overflowY="auto"
     >

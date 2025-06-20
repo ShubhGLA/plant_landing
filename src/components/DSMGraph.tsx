@@ -1,9 +1,7 @@
-// src/components/DSMGraph.tsx
-
 import { Box } from "@chakra-ui/react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import GraphLayout from "./GraphLayout"; // adjust path if needed
+import GraphLayout from "./GraphLayout"; 
 
 const options: Highcharts.Options = {
   chart: {
@@ -86,7 +84,7 @@ const options: Highcharts.Options = {
   ],
   credits: { enabled: false },
   exporting: {
-    enabled: false, // ✅ disables Highcharts export icon
+    enabled: false, 
   },
 };
 

@@ -13,7 +13,7 @@ import { Maximize2, Minimize2, MoreVertical } from 'lucide-react';
 interface GraphLayoutProps {
   onDownloadPNG?: () => void;
   onDownloadCSV?: () => void;
-  height?: string | number; // ✅ New prop
+  height?: string | number; 
   children: ReactNode;
 }
 
@@ -55,7 +55,7 @@ const GraphLayout = ({
       shadow="md"
       w="100%"
       maxW={isFullscreen ? '100vw' : '100%'}
-      h={isFullscreen ? '100vh' : height || 'auto'} // ✅ Conditional height
+      h={isFullscreen ? '100vh' : height || 'auto'}
       position="relative"
     >
       {/* Fullscreen Button */}

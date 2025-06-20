@@ -6,7 +6,7 @@ const chartOptions: Highcharts.Options = {
   chart: {
     type: "spline",
     backgroundColor: "transparent",
-    height: undefined, // ✅ Let container decide height
+    height: undefined,
   },
   title: { text: undefined },
   xAxis: {
@@ -52,7 +52,7 @@ export default function AnalyticsChart() {
       borderRadius="md"
       p={2}
       color="white"
-      height="100%" // ✅ Stretch fully
+      height="100%" 
       width="100%"
     >
       <Text fontWeight="bold" mb={2}>
@@ -61,7 +61,7 @@ export default function AnalyticsChart() {
       <HighchartsReact
         highcharts={Highcharts}
         options={chartOptions}
-        containerProps={{ style: { height: "calc(100% - 24px)" } }} // ✅ fills remaining space
+        containerProps={{ style: { height: "calc(100% - 24px)" } }} 
       />
     </Box>
   );

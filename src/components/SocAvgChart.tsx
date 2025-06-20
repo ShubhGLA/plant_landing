@@ -9,7 +9,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsExporting from 'highcharts/modules/exporting';
 import HighchartsExportData from 'highcharts/modules/export-data';
-import GraphLayout from '../components/GraphLayout'; // ✅ Adjust path if needed
+import GraphLayout from '../components/GraphLayout'; 
 
 // Initialize exporting modules once
 if (typeof HighchartsExporting === 'function') {
@@ -29,7 +29,7 @@ const SocAvgChart = () => {
       height: 200,
     },
     accessibility: {
-      enabled: false, // ✅ Removes warning
+      enabled: false,
     },
     title: { text: '' },
     xAxis: {
@@ -70,7 +70,7 @@ const SocAvgChart = () => {
     legend: { enabled: false },
     credits: { enabled: false },
     tooltip: { enabled: false },
-    exporting: { enabled: true }, // ✅ Enable for export to work
+    exporting: { enabled: true }, 
   };
 
   const handleDownloadPNG = () => {

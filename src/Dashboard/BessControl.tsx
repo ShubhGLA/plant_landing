@@ -14,7 +14,7 @@ export default function BessControl() {
       <Box maxW="1600px" mx="auto" p={4} bg="gray.800" borderRadius="md" boxShadow="md">
         <Text fontSize="2xl" fontWeight="bold" mb={6}>BESS Control Dashboard</Text>
 
-        {/* ✅ Row 1: BessOverview + BessWidget */}
+        {/*Row 1: BessOverview + BessWidget */}
         <Box mb={6} height="360px">
           <Flex gap={4} height="100%">
             <Box width="50%" height="100%">
@@ -26,7 +26,7 @@ export default function BessControl() {
           </Flex>
         </Box>
 
-        {/* ✅ Row 2: BatterySettings + AnalyticsChart + BarComparisonChart */}
+        {/*Row 2: BatterySettings + AnalyticsChart + BarComparisonChart */}
         <Box mb={6} height="380px">
           <Flex gap={4} height="100%">
             <Box width="33.33%" height="100%">
@@ -41,7 +41,7 @@ export default function BessControl() {
           </Flex>
         </Box>
 
-        {/* ✅ Row 3: ManualOverridePanel + ScheduledCommandPanel */}
+        {/*Row 3: ManualOverridePanel + ScheduledCommandPanel */}
         <Box mb={6} height="600px">
           <Flex gap={4} height="100%">
             <Box width="35%" height="100%">
@@ -53,7 +53,7 @@ export default function BessControl() {
           </Flex>
         </Box>
 
-        {/* ✅ Row 4: SmartStrategyConfig full width */}
+        {/*Row 4: SmartStrategyConfig */}
         <Box mb={2}>
           <SmartStrategyConfig />
         </Box>

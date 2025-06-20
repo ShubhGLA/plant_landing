@@ -20,7 +20,7 @@ const BatterySettings = () => {
       color="white"
       p={4}
       width="100%"
-      height="380px" // ✅ fixed height as required
+      height="380px"
     >
       <VStack align="stretch" spacing={5} height="100%">
         {/* Battery Capacity */}
