@@ -104,7 +104,7 @@ const Dashboard = () => {
             </Box>
 
             {/* SOC + Temp Charts */}
-            <Box display="flex" gap={4} flexWrap="nowrap">
+            <Box display="flex" gap={4} flexWrap="nowrap" mb={5}>
               <Box flex="1" minW="500px" h="250px">
                 <SocAvgChart />
               </Box>
@@ -121,7 +121,7 @@ const Dashboard = () => {
         </Box>
 
         {/* SECTION 3: Main Power Graph */}
-        <Box mt={6}>
+        <Box>
           <BessPowerChart />
         </Box>
       </Box>

@@ -1,7 +1,30 @@
 import { Box, Text, VStack, HStack } from '@chakra-ui/react';
 import { AlertTriangle, AlertCircle } from 'lucide-react';
+import { useMemo } from 'react';
+import { useLatestPOIData } from '../hooks/poi_meter/useLatestPOIData';
 
 const MeterCard = () => {
+
+  const keys = useMemo(() => ['voltage', 'power_kw', 'frequency_hz', 'amps', 'daily_energy_kwh'], []); // you can change this dynamically
+      const { data, status, error } = useLatestPOIData(keys);
+    
+      if (status === 'error') return <div>Error: {error}</div>;
+    
+      // console.log(data)
+    
+      const sumVoltage = data ? data.reduce((sum, item) => sum + parseFloat(item.voltage), 0) : 0;
+      const sumPower = data ? data.reduce((sum, item) => sum + parseFloat(item.power_kw), 0) : 0;
+      const sumTemperature = data ? data.reduce((sum, item) => sum + parseFloat(item.temperature), 0) : 0;
+      const sumFrequency = data ? data.reduce((sum, item) => sum + parseFloat(item.frequency_hz), 0) : 0;
+      const sumAmps = data ? data.reduce((sum, item) => sum + parseFloat(item.amps), 0) : 0;
+      const sumEnergy = data ? data.reduce((sum, item) => sum + parseFloat(item.daily_energy_kwh), 0) : 0;
+    
+      // Calculate the average
+      const avgVoltage = data ? sumVoltage / data.length : 1;
+      const avgPower = data ? sumPower / data.length : 1;
+      const avgTemperature = data ? sumTemperature / data.length : 1;
+      const avgFrequency = data ? sumFrequency / data.length : 1;
+      const avgAmps = data ? sumAmps / data.length : 1;
   return (
     <Box
       ml={"-10"}
@@ -27,23 +50,23 @@ const MeterCard = () => {
       <VStack align="start" spacing={1} fontSize="xs" mt={1}>
         <HStack justify="space-between" w="100%">
           <Text color="gray.400">Instant Power:</Text>
-          <Text fontWeight="semibold">400932 kW</Text>
+          <Text fontWeight="semibold">{avgPower} kW</Text>
         </HStack>
         <HStack justify="space-between" w="100%">
-          <Text color="gray.400">Reactive:</Text>
-          <Text fontWeight="semibold">123 kVar</Text>
+          <Text color="gray.400">Daily Energy:</Text>
+          <Text fontWeight="semibold">{sumEnergy} kWh</Text>
         </HStack>
         <HStack justify="space-between" w="100%">
           <Text color="gray.400">Frequency:</Text>
-          <Text fontWeight="semibold">41 Hz</Text>
+          <Text fontWeight="semibold">{avgFrequency} Hz</Text>
         </HStack>
         <HStack justify="space-between" w="100%">
           <Text color="gray.400">Voltage:</Text>
-          <Text fontWeight="semibold">123 kV</Text>
+          <Text fontWeight="semibold">{avgVoltage} kV</Text>
         </HStack>
         <HStack justify="space-between" w="100%">
           <Text color="gray.400">Current:</Text>
-          <Text fontWeight="semibold">123 A</Text>
+          <Text fontWeight="semibold">{avgAmps} A</Text>
         </HStack>
       </VStack>
 

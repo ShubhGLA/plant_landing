@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   Box,
   Text,
@@ -13,6 +13,8 @@ import {
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { Maximize2, Minimize2, MoreVertical } from 'lucide-react';
+import { useESSHistory } from '../hooks/ess/useHistoryESSData';
+import { useESSHistoryLast12Hours } from '../hooks/ess/useESSHistoryLast12Hours';
 
 const SocAvgChart = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -44,15 +46,30 @@ const SocAvgChart = () => {
     };
   }, []);
 
+  const [seriesData, setSeriesData] = useState<any[]>([{}])
+
   const options: Highcharts.Options = {
     chart: {
-      type: 'line',
+      type: 'spline',
       backgroundColor: 'transparent',
-      height: isFullscreen ? '100%' : 200,
+      height: isFullscreen ? '100%' : 220,
+      zooming : {
+        type : 'x'
+      },
+      style : {
+        color : '#fff'
+      }
     },
     title: { text: '' },
+    tooltip : {
+      enabled : true,
+      shared : true,
+      backgroundColor: '#222',
+      borderColor: '#888',
+      style: { color: '#fff' },
+    },
     xAxis: {
-      categories: ['20:20', '20:30', '20:40', '20:50'],
+      type: 'datetime',
       labels: { style: { color: '#ffffffb3' } },
       lineWidth: 1,
       lineColor: '#ffffff66',
@@ -62,35 +79,62 @@ const SocAvgChart = () => {
     yAxis: {
       title: { text: null },
       labels: { style: { color: '#ffffffb3' } },
-      tickPositions: [50, 60, 70],
-      min: 49,
-      max: 71,
-      gridLineWidth: 0,
+      // tickPositions: [50, 60, 70],
+      // min: 49,
+      // max: 71,
+      gridLineWidth: 1,
       lineWidth: 1,
       lineColor: '#ffffff66',
-      tickLength: 0,
+      tickLength: 6,
     },
-    series: [
-      {
-        name: 'Max SOC',
-        data: [66, 70, 68, 63],
-        type: 'line',
-        color: '#FFA500',
-        marker: { enabled: false },
-      },
-      {
-        name: 'Min SOC',
-        data: [58, 60, 57, 56],
-        type: 'line',
-        color: '#00BFFF',
-        marker: { enabled: false },
-      },
-    ],
-    legend: { enabled: false },
+    series: seriesData,
+    legend: { 
+      enabled: true ,
+      itemStyle : {
+        color : '#ffffffb3'
+      }
+      // style : {
+      //   color : '#ffffffb3'
+      // }
+    },
     credits: { enabled: false },
-    tooltip: { enabled: false },
     exporting: { enabled: false },
   };
+
+  // [
+  //     {
+  //       name: 'Max SOC',
+  //       data: [{}],
+  //       type: 'line',
+  //       color: '#FFA500',
+  //       marker: { enabled: false },
+  //     },
+  //     {
+  //       name: 'Min SOC',
+  //       data: [58, 60, 57, 56],
+  //       type: 'line',
+  //       color: '#00BFFF',
+  //       marker: { enabled: false },
+  //     },
+  //   ]
+
+  const keys = useMemo(() => ['soc'], []);
+//   const startTs = useMemo(() => '2025-06-18 14:50:00', []);
+// const endTs = useMemo(() => '2025-06-18 15:50:00', []);
+
+  const { data, status, error } = useESSHistoryLast12Hours(keys);
+  // console.log(data)
+  useEffect(() => {
+    if(data) {
+    //   console.log(convertToSeries(data))
+
+    setSeriesData(convertToSeries(data));
+    }
+  },[data])
+
+
+  // if (status === 'loading') return <div>Loading history...</div>;
+  if (status === 'error') return <div>Error: {error}</div>;
 
   return (
     <Box
@@ -101,8 +145,9 @@ const SocAvgChart = () => {
       shadow="md"
       width="100%"
       maxW={isFullscreen ? '100vw' : '500px'}
-      height={isFullscreen ? '100vh' : '350px'}
+      height={isFullscreen ? '100vh' : '300px'}
       position="relative"
+      overflow={"hidden"}
     >
       {/* Fullscreen Toggle Button */}
       <IconButton
@@ -142,16 +187,16 @@ const SocAvgChart = () => {
       </Menu>
 
       <HStack justify="space-between" align="start" mb={2}>
-        <VStack align="start" spacing={1}>
-          <Text fontSize="xl" fontWeight="bold">
-            SOC Avg 56%
+        <VStack align="start" spacing={1} px={5}>
+          <Text fontSize="xl" fontWeight="semibold">
+            SOC%
           </Text>
-          <Text fontSize="sm" opacity={0.7}>
+          {/* <Text fontSize="sm" opacity={0.7}>
             Max / Min &nbsp; 63% / 49%
-          </Text>
+          </Text> */}
         </VStack>
 
-        <HStack spacing={4} align="end" mt={4}>
+        {/* <HStack spacing={4} align="end" mt={4}>
           {['5M', '15M', '30M', '1H'].map((label) => (
             <Box key={label} textAlign="center">
               <Text
@@ -166,10 +211,10 @@ const SocAvgChart = () => {
               )}
             </Box>
           ))}
-        </HStack>
+        </HStack> */}
       </HStack>
 
-      <Box mt={8} height={isFullscreen ? 'calc(100% - 80px)' : 'auto'}>
+      <Box mt={5} height={isFullscreen ? 'calc(100% - 80px)' : '100%'}>
         <HighchartsReact
           highcharts={Highcharts}
           options={options}
@@ -186,3 +231,20 @@ const SocAvgChart = () => {
 };
 
 export default SocAvgChart;
+
+
+function convertToSeries(data : any) {
+    const seriesData = [];
+    
+    for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+            seriesData.push({
+                name: key.replace('soc', 'SoC') + " %",
+                opacity : 0.8,
+                data: data[key].map((item : any) => [new Date(item.ts).getTime(), parseFloat(item.value)])
+            });
+        }
+    }
+    
+    return seriesData;
+}
