@@ -10,6 +10,7 @@ import SocAvgChart from '../components/SocAvgChart';
 import InverterTable from '../components/InverterTable';
 import BatteryTempChart from '../components/BatteryTempChart';
 import MeterCard from '../components/MeterCard';
+import BatteryEnergyChart from '../components/BatteryEnergyChart';
 
 const Dashboard = () => {
   return (
@@ -72,7 +73,7 @@ const Dashboard = () => {
           >
             {/*Battery Banks Container */}
             <Box
-              bg="gray.900"
+              bg="gray.700"
               borderRadius="lg"
               p={4}
               boxShadow="md"
@@ -104,7 +105,7 @@ const Dashboard = () => {
             </Box>
 
             {/* SOC + Temp Charts */}
-            <Box display="flex" gap={4} flexWrap="nowrap">
+            <Box display="flex" gap={4} flexWrap="nowrap" mb={5}>
               <Box flex="1" minW="500px" h="250px">
                 <SocAvgChart />
               </Box>
@@ -121,8 +122,13 @@ const Dashboard = () => {
         </Box>
 
         {/* SECTION 3: Main Power Graph */}
-        <Box mt={6}>
-          <BessPowerChart />
+        <Box display="flex" gap={4} flexWrap="nowrap" mb={5}>
+          <Box minW="700px">
+            <BessPowerChart />
+          </Box>
+          <Box  minW="500px">
+            <BatteryEnergyChart />
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -1,33 +1,29 @@
-// src/components/GraphLayout.tsx
-import { useState, useEffect, useRef, type ReactNode } from 'react';
+import React, { useState, useEffect, useRef, type ReactNode } from 'react';
 import {
   Box,
+  Text,
+  VStack,
+  HStack,
   IconButton,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
 } from '@chakra-ui/react';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import { Maximize2, Minimize2, MoreVertical } from 'lucide-react';
 
-interface GraphLayoutProps {
-  onDownloadPNG?: () => void;
-  onDownloadCSV?: () => void;
-  height?: string | number; 
-  children: ReactNode;
+interface GraphType {
+    children : ReactNode;
 }
 
-const GraphLayout = ({
-  onDownloadPNG,
-  onDownloadCSV,
-  height,
-  children,
-}: GraphLayoutProps) => {
+const GraphLayout : React.FC<GraphType> = ({children}) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const chartRef = useRef<HighchartsReact.RefObject>(null);
 
   const handleFullScreenToggle = () => {
-    const elem = containerRef.current;
+    const elem = document.getElementById('soc-avg-chart-container');
     if (!isFullscreen && elem?.requestFullscreen) {
       elem.requestFullscreen();
     } else if (document.fullscreenElement) {
@@ -37,7 +33,13 @@ const GraphLayout = ({
 
   useEffect(() => {
     const handleChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      const full = !!document.fullscreenElement;
+      setIsFullscreen(full);
+
+      // Resize chart
+      setTimeout(() => {
+        chartRef.current?.chart.reflow();
+      }, 300);
     };
 
     document.addEventListener('fullscreenchange', handleChange);
@@ -48,20 +50,20 @@ const GraphLayout = ({
 
   return (
     <Box
-      ref={containerRef}
+      id="soc-avg-chart-container"
       bg="gray.900"
       borderRadius={isFullscreen ? 'none' : 'md'}
       p={4}
       shadow="md"
-      w="100%"
+      width="100%"
       maxW={isFullscreen ? '100vw' : '100%'}
-      h={isFullscreen ? '100vh' : height || 'auto'}
+      height={isFullscreen ? '100vh' : '350px'}
       position="relative"
     >
-      {/* Fullscreen Button */}
+      {/* Fullscreen Toggle Button */}
       <IconButton
         icon={isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
-        aria-label={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+        aria-label={isFullscreen ? 'Minimize' : 'Full screen'}
         size="sm"
         variant="ghost"
         color="whiteAlpha.800"
@@ -72,7 +74,7 @@ const GraphLayout = ({
         onClick={handleFullScreenToggle}
       />
 
-      {/* Menu Button */}
+      {/* 3-dot menu with options only */}
       <Menu>
         <MenuButton
           as={IconButton}
@@ -85,23 +87,20 @@ const GraphLayout = ({
           size="sm"
           zIndex={10}
         />
-        <MenuList bg="gray.900" color="white">
-          {onDownloadPNG && (
-            <MenuItem onClick={onDownloadPNG}>Download PNG</MenuItem>
-          )}
-          {onDownloadCSV && (
-            <MenuItem onClick={onDownloadCSV}>Download CSV</MenuItem>
-          )}
+        <MenuList bg="gray.900" color="black">
+          <MenuItem onClick={() => console.log('Download PNG clicked')}>
+            Download PNG
+          </MenuItem>
+          <MenuItem onClick={() => console.log('Download CSV clicked')}>
+            Download CSV
+          </MenuItem>
         </MenuList>
       </Menu>
 
-      {/* Content */}
-      <Box
-        mt={isFullscreen ? 12 : 8}
-        h={isFullscreen ? 'calc(100% - 80px)' : 'auto'}
-      >
+      <Box>
         {children}
       </Box>
+
     </Box>
   );
 };
