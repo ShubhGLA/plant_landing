@@ -4,6 +4,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { FaExpandArrowsAlt, FaCompressArrowsAlt, FaEllipsisV } from 'react-icons/fa';
 import { useESSHistoryLast12Hours } from '../hooks/ess/useESSHistoryLast12Hours';
+import { useESSHistoryLast5Minutes } from '../hooks/ess/useESSHistoryLast5Minutes copy';
 
 // Load Highcharts modules with dynamic import for compatibility with TypeScript and React
 import('highcharts/modules/exporting').then(module => {
@@ -14,7 +15,7 @@ import('highcharts/modules/export-data').then(module => {
 });
 
 
-const BatteryTempChart = () => {
+const BatteryEnergyChart = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
     const [seriesData, setSeriesData] = useState<any[]>([{}])
@@ -31,7 +32,8 @@ const BatteryTempChart = () => {
       labels: { style: { color: '#aaa' } },
       title : {
         text : ""
-      }
+      },
+      tickAmount : 5
     },
     yAxis: {
       gridLineColor: '#444',
@@ -39,7 +41,8 @@ const BatteryTempChart = () => {
       tickLength: 6,
       title : {
         text : ""
-      }
+      },
+      tickAmount : 6,
     },
     legend: {
       enabled: true,
@@ -73,11 +76,11 @@ const BatteryTempChart = () => {
   //     },
   //   ]
 
-  const keys = useMemo(() => ['temperature'], []);
+  const keys = useMemo(() => ['charge_energy_kwh', 'discharge_energy_kwh'], []);
   //   const startTs = useMemo(() => '2025-06-18 14:50:00', []);
   // const endTs = useMemo(() => '2025-06-18 15:50:00', []);
   
-    const { data, status, error } = useESSHistoryLast12Hours(keys);
+    const { data, status, error } = useESSHistoryLast5Minutes(keys);
     // console.log(data)
     useEffect(() => {
       if(data) {
@@ -110,7 +113,7 @@ const BatteryTempChart = () => {
       {/* Header Bar */}
       <HStack justify="space-between" mb={5}>
         <Text fontSize="xl" fontWeight="semibold" px={5}>
-          Temperature
+          Charge/Discharge
         </Text>
 
         <HStack spacing={2}>
@@ -184,7 +187,7 @@ const BatteryTempChart = () => {
   );
 };
 
-export default BatteryTempChart;
+export default BatteryEnergyChart;
 
 
 function convertToSeries(data : any) {
@@ -194,7 +197,7 @@ function convertToSeries(data : any) {
         if (data.hasOwnProperty(key)) {
             seriesData.push({
                 name: key.replace('temperature', 'Temp') + " °C",
-                opacity : 0.8,
+                type : 'bar',
                 data: data[key].map((item : any) => [new Date(item.ts).getTime() + 1000*60*60*5.5, parseFloat(item.value)])
             });
         }

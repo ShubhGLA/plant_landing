@@ -10,6 +10,7 @@ import SocAvgChart from '../components/SocAvgChart';
 import InverterTable from '../components/InverterTable';
 import BatteryTempChart from '../components/BatteryTempChart';
 import MeterCard from '../components/MeterCard';
+import BatteryEnergyChart from '../components/BatteryEnergyChart';
 
 const Dashboard = () => {
   return (
@@ -121,8 +122,13 @@ const Dashboard = () => {
         </Box>
 
         {/* SECTION 3: Main Power Graph */}
-        <Box>
-          <BessPowerChart />
+        <Box display="flex" gap={4} flexWrap="nowrap" mb={5}>
+          <Box minW="700px">
+            <BessPowerChart />
+          </Box>
+          <Box  minW="500px">
+            <BatteryEnergyChart />
+          </Box>
         </Box>
       </Box>
     </Box>

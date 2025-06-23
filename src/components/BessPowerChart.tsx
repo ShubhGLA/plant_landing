@@ -51,7 +51,7 @@ const BessPowerChart = () => {
     chart: {
       type: 'area',
       backgroundColor: 'transparent',
-      height: isFullscreen ? '100%' : 300,
+      height: isFullscreen ? '100%' : 230,
       style: { fontFamily: 'Segoe UI, sans-serif' },
     },
     title: { text: '' },
@@ -190,7 +190,7 @@ function convertToSeries(data : any) {
             seriesData.push({
                 name: key.includes("active_power_kw") ? key.replace('active_power_kw', 'Active') + " kW" : key.replace('reactive_power_kvar', 'Reactive') + " kVAR",
                 opacity : 0.8,
-                data: data[key].map((item : any) => [new Date(item.ts).getTime(), parseFloat(item.value)])
+                data: data[key].map((item : any) => [new Date(item.ts).getTime() + 1000*60*60*5.5, parseFloat(item.value)])
             });
         }
     }

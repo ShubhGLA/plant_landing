@@ -241,7 +241,7 @@ function convertToSeries(data : any) {
             seriesData.push({
                 name: key.replace('soc', 'SoC') + " %",
                 opacity : 0.8,
-                data: data[key].map((item : any) => [new Date(item.ts).getTime(), parseFloat(item.value)])
+                data: data[key].map((item : any) => [new Date(item.ts).getTime() + 1000*60*60*5.5, parseFloat(item.value)])
             });
         }
     }
