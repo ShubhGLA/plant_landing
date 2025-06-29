@@ -1,56 +1,39 @@
 import {
-  Box,
-  Flex,
-  HStack,
-  IconButton,
-  Button,
-  useDisclosure,
-  Stack,
-<<<<<<< HEAD
-=======
-  useColorModeValue,
->>>>>>> zakir
-  Text,
+  Box, Flex, HStack, IconButton, Button, useDisclosure,
+  Stack, Text, Popover, PopoverTrigger, PopoverContent,
+  PopoverHeader, PopoverBody, PopoverArrow, PopoverCloseButton,
+  VStack
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, BellIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { AiFillHome } from "react-icons/ai";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
-const links = [
-  { name: "Dashboard", path: "/" },
-  { name: "Battery Bank 1", path: "/battery-bank-1" },
-];
-
-const NavLink = ({ name, path }: { name: string; path: string }) => (
-  <RouterLink to={path}>
-    <HStack
-      px={3}
-      py={2}
-      rounded="md"
-      spacing={1}
-      fontWeight="medium"
-      color="gray.100"
-      _hover={{
-        textDecoration: "none",
-        bg: "gray.700",
-        color: "white",
-      }}
-    >
-      {name === "Dashboard" && <AiFillHome />}
-      <Text>{name}</Text>
-    </HStack>
-  </RouterLink>
-);
-
-export default function Navbar() {
+const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+
+  const links = [
+    { name: "Dashboard", path: "/" },
+    { name: "Battery Bank 1", path: "/battery-bank-1" },
+    { name: "BESS Control", path: "/bess-control" },
+    { name: "DSM", path: "/dsm" },
+  ];
+
+  const NavLink = ({ name, path }: { name: string; path: string }) => (
+    <RouterLink to={path}>
+      <HStack
+        px={3} py={2} rounded="md" spacing={1} fontWeight="medium"
+        color="gray.100"
+        _hover={{ textDecoration: "none", bg: "gray.700", color: "white" }}
+      >
+        {name === "Dashboard" && <AiFillHome />}
+        <Text>{name}</Text>
+      </HStack>
+    </RouterLink>
+  );
 
   return (
-<<<<<<< HEAD
-    <Box bg="gray.800" px={4} m={0} boxShadow="md">
-=======
-    <Box bg="gray.800" px={4} boxShadow="md">
->>>>>>> zakir
+    <Box bg="gray.800" px={4} boxShadow="md" zIndex={1100} position="relative">
       <Flex h={16} alignItems="center" justifyContent="space-between">
         <IconButton
           size="md"
@@ -62,46 +45,57 @@ export default function Navbar() {
           bg="gray.700"
           _hover={{ bg: "gray.600" }}
         />
-<<<<<<< HEAD
-        <HStack spacing={8} alignItems="center">
-=======
 
         <HStack spacing={8} alignItems="center">
-         
->>>>>>> zakir
           <HStack as="nav" spacing={4} display={{ base: "none", md: "flex" }}>
             {links.map((link) => (
               <NavLink key={link.name} {...link} />
             ))}
+
+            {/* Alarm dropdown */}
+            <Popover placement="bottom-start" closeOnBlur>
+              <PopoverTrigger>
+                <HStack
+                  px={3}
+                  py={2}
+                  rounded="md"
+                  spacing={1}
+                  fontWeight="medium"
+                  color="gray.100"
+                  _hover={{ bg: "gray.700", color: "white" }}
+                  cursor="pointer"
+                >
+                  <Text>Alarm</Text>
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent w="200px" bg="gray.800" color="white" border="none">
+                <PopoverArrow bg="gray.800" />
+                <PopoverCloseButton />
+                <PopoverHeader fontWeight="bold">Alarms</PopoverHeader>
+                <PopoverBody>
+                  <VStack spacing={3}>
+                    <Button w="100%" colorScheme="blue" onClick={() => navigate("/alarms/latest")}>
+                      Latest
+                    </Button>
+                    <Button w="100%" colorScheme="gray" onClick={() => navigate("/alarms/history")}>
+                      History
+                    </Button>
+                  </VStack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
           </HStack>
         </HStack>
-<<<<<<< HEAD
-=======
 
->>>>>>> zakir
         <Flex alignItems="center" gap={3}>
-          <IconButton
-            aria-label="Notifications"
-            icon={<BellIcon />}
-            variant="ghost"
-            size="sm"
-            color="gray.100"
-            _hover={{ bg: "gray.700" }}
-          />
-          <Button colorScheme="teal" size="sm">
-            Login
-          </Button>
+          <Button colorScheme="teal" size="sm">Login</Button>
         </Flex>
       </Flex>
 
+      {/* Mobile Menu */}
       {isOpen && (
-<<<<<<< HEAD
-        <Box display={{ md: "none" }} m={0} p={0}>
-          <Stack as="nav" spacing={0}>
-=======
         <Box pb={4} display={{ md: "none" }}>
           <Stack as="nav" spacing={4}>
->>>>>>> zakir
             {links.map((link) => (
               <NavLink key={link.name} {...link} />
             ))}
@@ -110,4 +104,6 @@ export default function Navbar() {
       )}
     </Box>
   );
-}
+};
+
+export default Navbar;

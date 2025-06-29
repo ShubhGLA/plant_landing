@@ -9,7 +9,7 @@ const BatteryStatusCard = () => {
 
   if (status === 'error') return <div>Error: {error}</div>;
 
-  // console.log(data)
+  console.log(data)
 
   const sumSoC = data ? data.reduce((sum, item) => sum + parseFloat(item.soc), 0) : 0;
 

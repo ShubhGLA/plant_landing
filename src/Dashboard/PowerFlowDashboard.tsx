@@ -1,6 +1,6 @@
 // src/Dashboard/PowerFlowDashboard.tsx
 import { Box, Flex } from "@chakra-ui/react";
-import ControlLayout from "../components/controllayout";
+import ControlLayout from "../components/ControlLayout";
 import LimitsBox from "../components/LimitsBox";
 
 export default function PowerFlowDashboard() {

@@ -1,9 +1,5 @@
 import { Box, Text, VStack, HStack } from '@chakra-ui/react';
 import { AlertTriangle, AlertCircle } from 'lucide-react';
-<<<<<<< HEAD
-
-const MeterCard = () => {
-=======
 import { useMemo } from 'react';
 import { useLatestPOIData } from '../hooks/poi_meter/useLatestPOIData';
 
@@ -14,7 +10,7 @@ const MeterCard = () => {
     
       if (status === 'error') return <div>Error: {error}</div>;
     
-      // console.log(data)
+      //console.log(data)
     
       const sumVoltage = data ? data.reduce((sum, item) => sum + parseFloat(item.voltage), 0) : 0;
       const sumPower = data ? data.reduce((sum, item) => sum + parseFloat(item.power_kw), 0) : 0;
@@ -29,7 +25,6 @@ const MeterCard = () => {
       const avgTemperature = data ? sumTemperature / data.length : 1;
       const avgFrequency = data ? sumFrequency / data.length : 1;
       const avgAmps = data ? sumAmps / data.length : 1;
->>>>>>> zakir
   return (
     <Box
       ml={"-10"}
@@ -55,25 +50,6 @@ const MeterCard = () => {
       <VStack align="start" spacing={1} fontSize="xs" mt={1}>
         <HStack justify="space-between" w="100%">
           <Text color="gray.400">Instant Power:</Text>
-<<<<<<< HEAD
-          <Text fontWeight="semibold">400932 kW</Text>
-        </HStack>
-        <HStack justify="space-between" w="100%">
-          <Text color="gray.400">Reactive:</Text>
-          <Text fontWeight="semibold">123 kVar</Text>
-        </HStack>
-        <HStack justify="space-between" w="100%">
-          <Text color="gray.400">Frequency:</Text>
-          <Text fontWeight="semibold">41 Hz</Text>
-        </HStack>
-        <HStack justify="space-between" w="100%">
-          <Text color="gray.400">Voltage:</Text>
-          <Text fontWeight="semibold">123 kV</Text>
-        </HStack>
-        <HStack justify="space-between" w="100%">
-          <Text color="gray.400">Current:</Text>
-          <Text fontWeight="semibold">123 A</Text>
-=======
           <Text fontWeight="semibold">{avgPower} kW</Text>
         </HStack>
         <HStack justify="space-between" w="100%">
@@ -91,7 +67,6 @@ const MeterCard = () => {
         <HStack justify="space-between" w="100%">
           <Text color="gray.400">Current:</Text>
           <Text fontWeight="semibold">{avgAmps} A</Text>
->>>>>>> zakir
         </HStack>
       </VStack>
 

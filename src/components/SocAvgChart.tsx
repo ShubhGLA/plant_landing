@@ -12,41 +12,6 @@ import {
 } from '@chakra-ui/react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import HighchartsExporting from 'highcharts/modules/exporting';
-import HighchartsExportData from 'highcharts/modules/export-data';
-import GraphLayout from '../components/GraphLayout'; 
-
-// Initialize exporting modules once
-if (typeof HighchartsExporting === 'function') {
-  HighchartsExporting(Highcharts);
-}
-if (typeof HighchartsExportData === 'function') {
-  HighchartsExportData(Highcharts);
-}
-
-const SocAvgChart = () => {
-  const chartRef = useRef<HighchartsReact.RefObject>(null);
-
-  const options: Highcharts.Options = {
-    chart: {
-      type: 'line',
-      backgroundColor: 'transparent',
-      height: 200,
-    },
-    accessibility: {
-      enabled: false,
-    },
-    title: { text: '' },
-    xAxis: {
-      categories: ['20:20', '20:30', '20:40', '20:50'],
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from '@chakra-ui/react';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
 import { Maximize2, Minimize2, MoreVertical } from 'lucide-react';
 import { useESSHistory } from '../hooks/ess/useHistoryESSData';
 import { useESSHistoryLast12Hours } from '../hooks/ess/useESSHistoryLast12Hours';
@@ -105,7 +70,6 @@ const SocAvgChart = () => {
     },
     xAxis: {
       type: 'datetime',
->>>>>>> zakir
       labels: { style: { color: '#ffffffb3' } },
       lineWidth: 1,
       lineColor: '#ffffff66',
