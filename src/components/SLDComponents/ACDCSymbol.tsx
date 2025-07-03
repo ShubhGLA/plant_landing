@@ -1,4 +1,3 @@
-// src/components/ACDCSymbol.tsx
 import React from "react";
 import { Group, Line, Rect } from "react-konva";
 

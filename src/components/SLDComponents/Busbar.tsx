@@ -1,4 +1,3 @@
-// src/components/Busbar.tsx
 import React, { useState } from "react";
 import { Group, Line } from "react-konva";
 
@@ -47,7 +46,7 @@ const Busbar: React.FC<BusbarProps> = ({ points, gap = 6 }) => {
 
   return (
     <>
-      {/* 🔴 Line 1 — Draggable */}
+      {/* Line 1 — Draggable */}
       <Group
         x={position1.x}
         y={position1.y}
@@ -63,7 +62,7 @@ const Busbar: React.FC<BusbarProps> = ({ points, gap = 6 }) => {
         />
       </Group>
 
-      {/* 🔒 Line 2 — Fixed */}
+      {/* Line 2 — Fixed */}
       <Group x={fixedLine2.x} y={fixedLine2.y}>
         <Line
           points={extendedPoints2}
@@ -74,7 +73,7 @@ const Busbar: React.FC<BusbarProps> = ({ points, gap = 6 }) => {
         />
       </Group>
 
-      {/* 🔒 Line 3 — Fixed */}
+      {/* Line 3 — Fixed */}
       <Group x={fixedLine3.x} y={fixedLine3.y}>
         <Line
           points={extendedPoints3}
@@ -85,8 +84,8 @@ const Busbar: React.FC<BusbarProps> = ({ points, gap = 6 }) => {
         />
       </Group>
 
-      {/* 🔧 New draggable vertical line */}
-      {/* 🔧 New draggable vertical line */}
+      {/* New draggable vertical line */}
+      {/* New draggable vertical line */}
 <Group
   x={verticalPos.x}
   y={verticalPos.y}

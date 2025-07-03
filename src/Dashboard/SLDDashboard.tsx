@@ -1,5 +1,3 @@
-// src/pages/SLDDashboard.tsx
-
 import React, { useEffect, useState } from "react";
 import { Stage, Layer, Group } from "react-konva";
 import BatteryBusLayout1 from "../SLD/BatteryBusLayout1";
@@ -23,17 +21,17 @@ const SLDDashboard = () => {
   }, []);
 
   // Total diagram width and height you expect
-  const diagramWidth = 1400; // approx diagram size
-  const diagramHeight = 800; // approx diagram size
+  const diagramWidth = 1400;
+  const diagramHeight = 800; 
 
   // Calculate scale to fit in screen
   const scaleX = stageWidth / diagramWidth;
-  const scaleY = (stageHeight - 80) / diagramHeight; // 80px for navbar
-  const scale = Math.min(scaleX, scaleY); // Keep aspect ratio
+  const scaleY = (stageHeight - 80) / diagramHeight; 
+  const scale = Math.min(scaleX, scaleY); 
 
   // Center diagram
   const offsetX = (stageWidth - diagramWidth * scale) / 2;
-  const offsetY = (stageHeight - diagramHeight * scale) / 2 + 40; // add some top margin for navbar
+  const offsetY = (stageHeight - diagramHeight * scale) / 2 + 40;
 
   return (
     <div

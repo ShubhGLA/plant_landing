@@ -1,4 +1,3 @@
-// src/components/VerticalSwitchLine.tsx
 import React from "react";
 import { Group, Line, Circle, Text } from "react-konva";
 
@@ -19,7 +18,7 @@ const VerticalSwitchLine: React.FC<VerticalSwitchLineProps> = ({
 
   const crossOffset = 25;
   const crossGap = 10;
-  const dotOffset = crossOffset + 20; // dot slightly below cross
+  const dotOffset = crossOffset + 20; 
   const arrowOffset = 150;
   const arrowGap = 10;
 
