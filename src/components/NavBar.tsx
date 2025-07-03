@@ -17,6 +17,7 @@ const Navbar = () => {
     { name: "Battery Bank 1", path: "/battery-bank-1" },
     { name: "BESS Control", path: "/bess-control" },
     { name: "DSM", path: "/dsm" },
+    { name: "SLD", path: "/sld" }, // ✅ Added here
   ];
 
   const NavLink = ({ name, path }: { name: string; path: string }) => (
@@ -52,7 +53,48 @@ const Navbar = () => {
               <NavLink key={link.name} {...link} />
             ))}
 
-            {/* Alarm dropdown */}
+            {/* ✅ Report Dropdown */}
+            <Popover placement="bottom-start" closeOnBlur>
+              <PopoverTrigger>
+                <HStack
+                  px={3}
+                  py={2}
+                  rounded="md"
+                  spacing={1}
+                  fontWeight="medium"
+                  color="gray.100"
+                  _hover={{ bg: "gray.700", color: "white" }}
+                  cursor="pointer"
+                >
+                  <Text>Report</Text>
+                </HStack>
+              </PopoverTrigger>
+              <PopoverContent w="200px" bg="gray.800" color="white" border="none">
+                <PopoverArrow bg="gray.800" />
+                <PopoverCloseButton />
+                <PopoverHeader fontWeight="bold">Report</PopoverHeader>
+                <PopoverBody>
+                  <VStack spacing={3}>
+                    <Button
+                      w="100%"
+                      colorScheme="blue"
+                      onClick={() => navigate("/report?tab=report")}
+                    >
+                      Report Management
+                    </Button>
+                    <Button
+                      w="100%"
+                      colorScheme="gray"
+                      onClick={() => navigate("/report?tab=template")}
+                    >
+                      Report Template
+                    </Button>
+                  </VStack>
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
+
+            {/* ✅ Alarm Dropdown */}
             <Popover placement="bottom-start" closeOnBlur>
               <PopoverTrigger>
                 <HStack
@@ -92,13 +134,31 @@ const Navbar = () => {
         </Flex>
       </Flex>
 
-      {/* Mobile Menu */}
+      {/* ✅ Mobile view */}
       {isOpen && (
         <Box pb={4} display={{ md: "none" }}>
           <Stack as="nav" spacing={4}>
             {links.map((link) => (
               <NavLink key={link.name} {...link} />
             ))}
+            <Button
+              w="100%"
+              onClick={() => navigate("/report?tab=report")}
+              variant="ghost"
+              color="white"
+              justifyContent="flex-start"
+            >
+              Report
+            </Button>
+            <Button
+              w="100%"
+              onClick={() => navigate("/report?tab=template")}
+              variant="ghost"
+              color="white"
+              justifyContent="flex-start"
+            >
+              Template
+            </Button>
           </Stack>
         </Box>
       )}

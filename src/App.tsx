@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useSearchParams } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Dashboard from "./Dashboard/Index";
@@ -8,6 +8,19 @@ import StringDashboard from "./components/StringDashboard";
 import BessControl from "./Dashboard/BessControl";
 import DSMdashboard from "./Dashboard/DSMdashboard";
 import AlarmDashboard from "./Dashboard/AlarmDashboard";
+import ReportDashboard from "./Dashboard/ReportDashboard";
+import ReportTemplateDashboard from "./Dashboard/ReportTemplateDashboard";
+import SLDDashboard from "./Dashboard/SLDDashboard"; 
+
+const ReportRouter = () => {
+  const [searchParams] = useSearchParams();
+  const tab = searchParams.get("tab");
+
+  if (tab === "template") {
+    return <ReportTemplateDashboard />;
+  }
+  return <ReportDashboard />;
+};
 
 const App = () => {
   return (
@@ -24,6 +37,8 @@ const App = () => {
           <Route path="/dsm" element={<DSMdashboard />} />
           <Route path="/alarms/latest" element={<AlarmDashboard />} />
           <Route path="/alarms/history" element={<AlarmDashboard />} />
+          <Route path="/report" element={<ReportRouter />} />
+          <Route path="/sld" element={<SLDDashboard />} /> 
         </Routes>
       </Box>
     </Box>
