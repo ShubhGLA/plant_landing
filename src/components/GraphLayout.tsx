@@ -16,9 +16,11 @@ import { Maximize2, Minimize2, MoreVertical } from 'lucide-react';
 
 interface GraphType {
     children : ReactNode;
+    title? : string;
+    height? : string;
 }
 
-const GraphLayout : React.FC<GraphType> = ({children}) => {
+const GraphLayout : React.FC<GraphType> = ({children, title, height}) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const chartRef = useRef<HighchartsReact.RefObject>(null);
 
@@ -57,9 +59,13 @@ const GraphLayout : React.FC<GraphType> = ({children}) => {
       shadow="md"
       width="100%"
       maxW={isFullscreen ? '100vw' : '100%'}
-      height={isFullscreen ? '100vh' : '350px'}
+      height={isFullscreen ? '100vh' : height ? height : '380px'}
       position="relative"
     >
+      {/* Title */}
+      <Text fontSize="xl" fontWeight="semibold">
+        {title}
+      </Text>
       {/* Fullscreen Toggle Button */}
       <IconButton
         icon={isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
@@ -97,7 +103,7 @@ const GraphLayout : React.FC<GraphType> = ({children}) => {
         </MenuList>
       </Menu>
 
-      <Box>
+      <Box height={"100%"}>
         {children}
       </Box>
 

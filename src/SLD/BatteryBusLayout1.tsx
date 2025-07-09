@@ -3,10 +3,12 @@ import { Group, Line, Text } from "react-konva";
 
 interface BatteryBusLayoutProps {
   flipHorizontal?: boolean;
+  data? : any;
 }
 
 const BatteryBusLayout: React.FC<BatteryBusLayoutProps> = ({
   flipHorizontal = false,
+  data
 }) => {
   const batteryCount = 10;
 
@@ -61,8 +63,8 @@ const BatteryBusLayout: React.FC<BatteryBusLayoutProps> = ({
             <Text text="SW1" x={x + 10} y={midY - 12} fontSize={10} fill="white" />
             <Text text="BAT01" x={x + 10} y={symbolTop + symbolGap * 3 + 6} fontSize={10} fill="white" />
             <Text text="STR01" x={x - 18} y={bottomY + 6} fontSize={10} fill="#B3B3B3" />
-            <Text text="645.10 V" x={x - 22} y={bottomY + 20} fontSize={10} fill="orange" />
-            <Text text={i === 9 ? "10.00 A" : "0.00 A"} x={x - 22} y={bottomY + 34} fontSize={10} fill="orange" />
+            <Text text={(data? data.voltage? data.voltage.value : 0 : 0) + " V"} x={x - 18} y={bottomY + 20} fontSize={10} fill="orange" />
+            <Text text={(data? data.current? data.current.value : 0 : 0) + " A"} x={x - 18} y={bottomY + 34} fontSize={10} fill="orange" />
           </Group>
         );
       })}

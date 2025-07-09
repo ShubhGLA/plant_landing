@@ -7,7 +7,7 @@ const options: Highcharts.Options = {
   chart: {
     type: "spline",
     backgroundColor: "transparent",
-    height: 250,
+    height: 300,
   },
   title: { text: undefined },
   xAxis: {
@@ -91,7 +91,7 @@ const options: Highcharts.Options = {
 export default function DSMGraph() {
   return (
     <GraphLayout>
-      <Box height="250px">
+      <Box height="320px">
         <HighchartsReact
           highcharts={Highcharts}
           options={options}

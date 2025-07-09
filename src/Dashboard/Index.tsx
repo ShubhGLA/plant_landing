@@ -49,19 +49,30 @@ const Dashboard = () => {
             <MeterCard />
           </Box>
 
-          <Box gridColumn="1">
+          {/* <Box gridColumn="1">
             <BatteryHealthCard />
           </Box>
           <Box gridColumn={{ base: '1', md: '2 / span 2' }}>
             <GridAndOptimizationCard />
-          </Box>
+          </Box> */}
 
-          <Box gridColumn={{ base: '1', sm: '1 / span 2', md: '1 / span 4' }}>
+          {/* <Box gridColumn={{ base: '1', sm: '1 / span 2', md: '1 / span 4' }}>
             <AlertsCard />
-          </Box>
+          </Box> */}
+          
         </Grid>
 
-        {/* SECTION 2: Battery Bank + Inverters */}
+        {/* SECTION 2: Main Power and energy Graph */}
+        <Box display="flex" gap={4} flexWrap="nowrap" mb={5}>
+          <Box minW="700px">
+            <BessPowerChart />
+          </Box>
+          <Box  minW="500px">
+            <BatteryEnergyChart />
+          </Box>
+        </Box>
+
+        {/* SECTION 3: Battery Bank + Inverters */}
         <Box display="flex" gap={6} flexWrap="wrap" mt={6}>
           {/* Left column - Battery Banks + SOC + Temp Chart */}
           <Box
@@ -120,15 +131,10 @@ const Dashboard = () => {
             <InverterTable />
           </Box>
         </Box>
-
-        {/* SECTION 3: Main Power Graph */}
-        <Box display="flex" gap={4} flexWrap="nowrap" mb={5}>
-          <Box minW="700px">
-            <BessPowerChart />
-          </Box>
-          <Box  minW="500px">
-            <BatteryEnergyChart />
-          </Box>
+          
+        {/* Last section */}
+        <Box gridColumn={{ base: '1', sm: '1 / span 2', md: '1 / span 4' }}>
+            <AlertsCard />
         </Box>
       </Box>
     </Box>

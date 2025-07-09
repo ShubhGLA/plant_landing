@@ -5,12 +5,14 @@ interface BatteryBusLayoutProps {
   id: string;
   isDraggable?: boolean;
   flipHorizontal?: boolean;
+  data? : any;
 }
 
 const BatteryBusLayout2: React.FC<BatteryBusLayoutProps> = ({
   id,
   isDraggable = false,
   flipHorizontal = false,
+  data
 }) => {
   const batteryCount = 10;
 
@@ -99,14 +101,14 @@ const BatteryBusLayout2: React.FC<BatteryBusLayoutProps> = ({
             <Text
               x={x - 20}
               y={bottomY + 22}
-              text={isLast ? "645.10 V" : "641.70 V"}
+              text={(data? data.voltage? data.voltage.value : 0 : 0) + " V"}
               fontSize={10}
               fill="orange"
             />
             <Text
               x={x - 20}
               y={bottomY + 34}
-              text={isLast ? "10.00 A" : "0.00 A"}
+              text={(data? data.current? data.current.value : 0 : 0) + " A"}
               fontSize={10}
               fill="orange"
             />

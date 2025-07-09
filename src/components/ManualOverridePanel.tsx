@@ -48,7 +48,7 @@ export default function ManualOverridePanel() {
       </HStack>
 
       <HStack mb={2} align="center">
-        <Text fontSize="sm">Set Pomt</Text>
+        <Text fontSize="sm">Setpoint</Text>
         <Input size="sm" w="40px" />
         <Checkbox />
         <Text fontSize="sm">kW</Text>
@@ -70,7 +70,7 @@ export default function ManualOverridePanel() {
       <HStack mb={4}>
         <Button
           size="sm"
-          colorScheme={selectedMode === "discharge" ? "blue" : "gray"}
+          colorScheme={selectedMode === "discharge" ? "blue" : "white"}
           variant={selectedMode === "discharge" ? "solid" : "outline"}
           flex="1"
           onClick={() => setSelectedMode("discharge")}
@@ -79,7 +79,7 @@ export default function ManualOverridePanel() {
         </Button>
         <Button
           size="sm"
-          colorScheme={selectedMode === "reserve" ? "blue" : "gray"}
+          colorScheme={selectedMode === "reserve" ? "blue" : "white"}
           variant={selectedMode === "reserve" ? "solid" : "outline"}
           flex="1"
           onClick={() => setSelectedMode("reserve")}

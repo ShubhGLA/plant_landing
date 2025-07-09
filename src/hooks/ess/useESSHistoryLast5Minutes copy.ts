@@ -14,8 +14,24 @@ export const useESSHistoryLast5Minutes = (keys: string[]) => {
     const fetchData = async () => {
       try {
         const now = new Date();
-        const startTs = new Date(now.getTime() - 5 * 60 * 1000).toISOString().replace('T', ' ').slice(0, 19);
-        const endTs = now.toISOString().replace('T', ' ').slice(0, 19);
+        const startDate = new Date(now.getTime() - 5 * 60 * 1000); // 5 min ago
+
+        function formatLocal(date: Date): string {
+          const pad = (n: number) => n.toString().padStart(2, '0');
+
+          const year = date.getFullYear();
+          const month = pad(date.getMonth() + 1); // months are 0-indexed
+          const day = pad(date.getDate());
+          const hours = pad(date.getHours());
+          const minutes = pad(date.getMinutes());
+          const seconds = pad(date.getSeconds());
+
+          return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        const startTs = formatLocal(startDate);
+        const endTs = formatLocal(now);
+
 
         const params = new URLSearchParams({
           keys: keys.join(','),
