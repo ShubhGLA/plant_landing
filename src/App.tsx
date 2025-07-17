@@ -11,6 +11,7 @@ import AlarmDashboard from "./Dashboard/AlarmDashboard";
 import ReportDashboard from "./Dashboard/ReportDashboard";
 import ReportTemplateDashboard from "./Dashboard/ReportTemplateDashboard";
 import SLDDashboard from "./Dashboard/SLDDashboard"; 
+import CalendarPage from "./Dashboard/CalendarDashboard";
 
 const ReportRouter = () => {
   const [searchParams] = useSearchParams();
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/alarms/history" element={<AlarmDashboard />} />
           <Route path="/report" element={<ReportRouter />} />
           <Route path="/sld" element={<SLDDashboard />} /> 
+          <Route path="/calendar" element={<CalendarPage />} /> 
         </Routes>
       </Box>
     </Box>
